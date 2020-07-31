@@ -1,0 +1,26 @@
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" th:inline="javascript">
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable([[${mass}]]);
+
+            var options = {
+                title: 'CPU LOAD',
+                hAxis: {title: 'Time',  titleTextStyle: {color: '#333'},minValue:[[${mass[1][0]}]],maxValue:[[${mass[61][0]}]] },
+                vAxis: {title: 'Percent',  titleTextStyle: {color: '#333'},minValue: 0,maxValue:100}
+            };
+
+            var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
+            chart.draw(data, options);
+        }
+    </script>
+</head>
+<body>
+<div id="chart_div" style="width: 100%; height: 500px;"></div>
+<h2 align="center" th:text="${avg}"/>
+</body>
+</html>
